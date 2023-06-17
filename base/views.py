@@ -18,7 +18,7 @@ from django.shortcuts import redirect
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
 
-    rooms = Room.objects.filter(topic__name__icontains=q) if q else Room.objects.all()
+    rooms = Room.objects.filter(topic__name=q) if q else Room.objects.all()
 
     topic = Topic.objects.all()
     context = {"rooms":rooms,"topics":topic}
