@@ -8,9 +8,6 @@
     .home-container{
         display: grid;
         grid-template-columns: 2fr 6fr;
-
-
-
     }
 
 
@@ -55,8 +52,10 @@
 
         {% for room in rooms  %}
         <div>
+            {% if request.user != room.host.username %}
             <a href="{% url "update-room" room.id  %}">Edit</a>
             <a href="{% url "delete-room" room.id  %}">Delete</a>
+            {% endif %}
             <hr></hr>
             <span>Host: {{room.host.username}}</span>
             <h5>{{room.id}} -- <a href="{% url "room" room.id %}"> {{ room.name }}</a></h5>
