@@ -69,16 +69,14 @@ def registerPage(request):
             user = form.save(commit=False)
             user.username = user.username.lower()
             user.save()
-
-            
             login(request,user)
             return redirect("/")
         else:
             messages.error(request,"An error occured during registration")
 
 
-    page = "register"
-    return render(request,"base/login_register.html")
+    
+    return render(request,"base/login_register.html",{"form":form})
 
 
 
