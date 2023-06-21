@@ -1,81 +1,41 @@
 {% extends 'main.html' %}
 
-
 {% block content %}
 
 <style>
-
-    .home-container{
+    .home-container {
         display: grid;
-        grid-template-columns: 2fr 6fr;
+        grid-template-columns: 1fr 3fr 1fr;
     }
-
-
-    .topic-all{
-        font-size: 19px;
-
-        margin-bottom: 10px;
-    }
-
 </style>
 
-
-
-
 <div class="home-container">
-
     <div>
-        <h3>Browse Topic</h3>
-        <hr>
+        
+        {% include "base/topics_component.html"  %}
+        
 
-        <div class="topic-all">
-            <a href="{% url "home"  %}">All</a>
-        </div>
-
-
-        {% for topic in topics %}
-        <div>
-            <a href="{% url "home"  %}?q={{topic.name}}">{{ topic }}</a>
-        </div>
-
-
-        {% endfor%}
 
     </div>
     <div>
-        <h3>{{ room_count }} rooms available  </h3>
-              <a href="{% url 'create-room' %}">Create Room</a>
+        <h3>{{ room_count }} rooms available</h3>
+        <a href="{% url 'create-room' %}">Create Room</a>
+       
 
-
-    <div>
-
-
-        {% for room in rooms  %}
-        <div>
-            {% if request.user != room.host.username %}
-            <a href="{% url "update-room" room.id  %}">Edit</a>
-            <a href="{% url "delete-room" room.id  %}">Delete</a>
-            {% endif %}
-            <hr></hr>
-            <span>Host: {{room.host.username}}</span>
-            <h5>{{room.id}} -- <a href="{% url "room" room.id %}"> {{ room.name }}</a></h5>
-            <small>{{room.topic.name}}</small>
-            <hr></hr>
-        </div>
-        {% endfor %}
-    </div>
-
-
-
+        {% include "base/feed_component.html" %}
 
 
     </div>
 
-  
+
+    <div>
+        {% include "base/activity_component.html" %}
+
+      
+    </div>
 
 </div>
 
 
 
-
-{% endblock %}
+{% endblock content  %}
