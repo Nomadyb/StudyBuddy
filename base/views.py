@@ -135,6 +135,8 @@ def createRoom(reguest):
         print("Printing POST:",reguest.POST)
         form = RoomForm(reguest.POST)
         if form.is_valid():
+            room = form.save(commit=False)
+            room.host = reguest.user
             form.save()
             return redirect("/")
 
